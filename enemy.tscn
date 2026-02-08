@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6g8w7x6y5f4h"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_abcde"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyz"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_detect"]
+size = Vector2(200, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
+size = Vector2(22, 22)
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_abcde")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xyz")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("RectangleShape2D_detect")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_hurtbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hitbox")
+
+[node name="EdgeDetectorLeft" type="RayCast2D" parent="."]
+position = Vector2(-10, 10)
+target_position = Vector2(0, 10)
+
+[node name="EdgeDetectorRight" type="RayCast2D" parent="."]
+position = Vector2(10, 10)
+target_position = Vector2(0, 10)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

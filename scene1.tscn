@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci8mu2e5qy1yw"]
+
+[ext_resource type="PackedScene" uid="uid://c5ge5rsosa2c8" path="res://player.tscn" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://c6g8w7x6y5f4h" path="res://enemy.tscn" id="2_xyz"]
+[ext_resource type="PackedScene" path="res://charging_enemy.tscn" id="3_123"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(200, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_abcde")]
+position = Vector2(100, 100)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(500, 580)
+
+[node name="Polygon2D" type="Polygon2D" parent="Floor"]
+polygon = PackedVector2Array(-500, -10, 500, -10, 500, 10, -500, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(300, 439)
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform1"]
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(700, 339)
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform2"]
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+shape = SubResource("RectangleShape2D_platform")
+
+[node name="Enemy" parent="." instance=ExtResource("2_xyz")]
+position = Vector2(300, 350)
+
+[node name="Enemy" parent="Enemy" instance=ExtResource("2_xyz")]
+position = Vector2(54, 184)
+
+[node name="ChargingEnemy" parent="." instance=ExtResource("3_123")]
+position = Vector2(700, 250)
+
+[node name="ChargingEnemy" parent="ChargingEnemy" instance=ExtResource("3_123")]
+position = Vector2(-60, 286)
